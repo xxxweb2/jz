@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/public/static/css/reset.css">
+    <link rel="stylesheet" href="/public/static/css/login.css">
+</head>
+<body>
+
+<div class="select-box">
+    <div class="select-detail">
+        <h3 style="background: #2d3e5c">注册</h3>
+
+        <div class="select">
+            <span>请选择你要注册的身份: </span>
+
+            <input type="radio" name="where" class="user" value="1" checked>我是用户
+            <input type="radio" name="where" class="service" value="2">我是服务人员
+        </div>
+        <div class="action">
+            <a style="float: left" href="#" class="goSelect">确定</a><a style="float: right"
+                                                                      href="/admin/login/select">返回</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.js"></script>
+<script type="text/javascript">
+
+    $('.goSelect').on('click', function () {
+        var res = $("input[type=radio]:checked").val();
+        if (res == 1) {
+            window.location.href = "/index/login/user";
+        } else if (res == 2) {
+            window.location.href = "/index/login/employees";
+        }
+    });
+</script>
+</body>
+</html>

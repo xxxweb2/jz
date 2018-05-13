@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/public/static/css/reset.css">
+    <link rel="stylesheet" href="/public/static/css/login.css">
+    <link rel="stylesheet" href="/public/static/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="select-box">
+    <div class="select-detail" style="height: 430px; position: relative">
+        <h3 style="background: #2d3e5c">用户注册</h3>
+
+        <form action="/index/user/saveUser" class="user" method="post">
+            <div class="form-group">
+                <label>用户名:</label>
+                <input type="text" name="name" class="name">
+            </div>
+            <div class="form-group">
+                <label>密码:</label>
+                <input type="password" name="password" class="password" value="">
+            </div>
+            <div class="form-group">
+                <label>确认密码:</label>
+                <input type="password" name="rpassword" class="rpassword" value="">
+            </div>
+            <div class="form-group">
+                <label>邮箱:</label>
+                <input type="text" name="email" class="email">
+            </div>
+            <div class="form-group">
+                <label>手机号:</label>
+                <input type="number" name="tel" class="tel">
+            </div>
+            <div class="form-group">
+                <label>详细地址:</label>
+                <textarea name="addr" id="" cols="30" rows="3" class="addr"></textarea>
+            </div>
+
+            <div class="ico btn-upload">
+                <img src="/public/static/images/ico.jpg" alt="" id="show-img">
+                <div class="edit">
+                    点我进行修改
+                </div>
+            </div>
+            <input type="hidden" name="img" value="/public/static/images/ico.jpg" id="img">
+            <div class="action" style="margin-top: 0;">
+                <input type="submit" style="float: left" value="提交">
+
+                <input type="reset" style="float: right" value="重置">
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.js"></script>
+<script type="text/javascript" src="/public/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/public/static/js/upload.min.js"></script>
+<script type="text/javascript" src="/public/static/js/util.js"></script>
+<script type="text/javascript">
+    $('.btn-upload').uploadFile(
+        {
+            method: 'post',
+            url: "/admin/user/uploadFile",
+            error: function (data) {
+                alert(data.msg);
+            },
+            success: function (data) {
+                $('#show-img').attr('src', '/public/uploads/' + data.msg);
+                $('#img').val(data['msg']);
+            }
+        });
+
+
+    $('.user').on('submit', function () {
+        var name = $('.name').val();
+
+        if (name == null || name == "") {
+            alert("请输入用户名");
+            return;
+        }
+
+        var pwd = $('.password').val();
+        var rpwd = $('.rpassword').val();
+
+
+
+        if (pwd == null || pwd == "") {
+            alert("请输入密码");
+            return false;
+        }
+
+        if (pwd.length < 6) {
+            alert("密码至少为6位");
+            return false;
+        }
+
+        if (rpwd == null || rpwd == "") {
+            alert("请输入确认密码");
+            return false;
+        }
+
+
+        if (pwd != rpwd) {
+            alert("密码和确认密码不同");
+            return false;
+        }
+
+        var email = $('.email').val();
+        var tel = $('.tel').val();
+
+        if (!checkEmail(email)) {
+            alert('请输入正确的邮箱格式');
+            return false;
+        }
+
+        if (!isPoneAvailable(tel)) {
+            alert('请输入正确的手机号格式');
+            return false;
+        }
+
+    });
+
+
+</script>
+</body>
+</html>

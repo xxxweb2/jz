@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>注册为家政人员</title>
     <link rel="stylesheet" href="/public/static/css/reset.css">
     <link rel="stylesheet" href="/public/static/css/login.css">
     <link rel="stylesheet" href="/public/static/css/bootstrap.min.css">
@@ -10,7 +10,7 @@
 <body>
 
 <div class="select-box">
-    <div class="select-detail" style="height: 540px; position: relative">
+    <div class="select-detail" style="height: 564px; position: relative">
         <h3 style="background: #2d3e5c">员工注册</h3>
 
         <form action="/index/user/saveEmployees" class="user" method="post">
@@ -44,6 +44,15 @@
             </div>
 
             <div class="form-group">
+                <label>职位类别:</label>
+                <select name="addrid">
+                    {volist name="addrList" id="item"}
+                    <option value="{$item.id}">{$item.name}</option>
+                    {/volist}
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label>服务类别:</label>
 
                 <select name="type">
@@ -52,6 +61,9 @@
                     {/volist}
                 </select>
             </div>
+
+
+
             <div class="form-group">
                 <label>个人简介:</label>
                 <textarea name="info" id="" cols="30" rows="3"></textarea>

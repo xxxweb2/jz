@@ -22,7 +22,12 @@ class User extends BaseController
             $this->error('注册失败，该邮箱已经被注册', '/index/login/user');
             exit;
         }
+        $userItem = Db::name('yuan')->where(array('email' => $user['email']))->find();
 
+        if (!is_null($userItem)) {
+            $this->error('注册失败，该邮箱已经被注册', '/index/login/user');
+            exit;
+        }
 //        生成随机串
 
         $str = $user['name'] . $user['password'] . $user['email'];
@@ -55,7 +60,7 @@ class User extends BaseController
             Db::name('user')->where(array('emilestr' => $str))->update(array('isemail' => 1));
             $this->success('激活成功', '/index/login/index');
         } else {
-            $this->error('激活失败');
+            $this->error('激活失败', '/index/login/index');
         }
 
     }
@@ -73,6 +78,12 @@ class User extends BaseController
 
         $userItem = Db::name('yuan')->where(array('email' => $user['email']))->find();
 
+        if (!is_null($userItem)) {
+            $this->error('注册失败，该邮箱已经被注册', '/index/login/employees');
+            exit;
+        }
+
+        $userItem = Db::name('user')->where(array('email' => $user['email']))->find();
         if (!is_null($userItem)) {
             $this->error('注册失败，该邮箱已经被注册', '/index/login/employees');
             exit;
@@ -108,7 +119,7 @@ class User extends BaseController
             Db::name('yuan')->where(array('emilestr' => $str))->update(array('isemail' => 1));
             $this->success('激活成功', '/index/login/index');
         } else {
-            $this->error('激活失败');
+            $this->error('激活失败', 'index/login/index');
         }
     }
 

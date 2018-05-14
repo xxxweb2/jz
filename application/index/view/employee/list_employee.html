@@ -24,20 +24,73 @@
         </ul>
     </div>
 </div>
-<div class="header w1200 clearfloat">
+<div class="header w1200">
     <h1>家政服务管理系统</h1>
-    <ul class="clearfloat">
-        <li><a href="/">首页</a></li>
-        <li><a href="/index/Employee/listEmployee">家政服务</a></li>
-        <li><a href="/">个人中心</a></li>
-        <li><a href="/">新闻中心</a></li>
+</div>
+
+<div class="menu w1200">
+
+    <div class="menu-item clearfloat addr">
+        <span>地点:</span>
+        <a href="#" class="active">全部</a>
+        <ul>
+            {volist name="addrList" id="addr"}
+            <li class="{$addrId==$addr.id?'active':''}" data-index="{$addr.id}">{$addr.name}</li>
+            {/volist}
+        </ul>
+    </div>
+
+    <div class="menu-item job clearfloat">
+        <span>职位:</span>
+        <a href="#" class="active">全部</a>
+        <ul>
+            {volist name="serverList" id="server"}
+            <li class="{$jobId==$server.id?'active':''}" data-index="{$server.id}">{$server.name}</li>
+            {/volist}
+        </ul>
+    </div>
+
+    <div class="menu-item clearfloat sort">
+        <span>评价:</span>
+        <a href="#" class="active">全部</a>
+        <ul>
+            <li data-index="5" class="{$sortId==5?'active':''}">五分</li>
+            <li data-index="4" class="{$sortId==4?'active':''}">四分</li>
+            <li data-index="3" class="{$sortId==3?'active':''}">三分</li>
+            <li data-index="2" class="{$sortId==2?'active':''}">二分</li>
+            <li data-index="1" class="{$sortId==1?'active':''}">一分</li>
+        </ul>
+    </div>
+    <button id="search">搜索</button>
+</div>
+
+<div class="w1200 select">
+    <h3>综合排序</h3>
+</div>
+<div class="select-list w1200 clearfloat">
+    <ul>
+        {volist name="emplList" id="emp"}
+        <li>
+            <a href="#">
+                <img src="{$emp.img}" alt="">
+
+                <p><span></span>{$emp.addrname}</p>
+                <p>{$emp.name}</p>
+                <p>{$emp.age}</p>
+                <p>评分: {$emp.sort}分</p>
+                <p>工作经验: {$emp.exper}年</p>
+                <p>
+                    <a href="#"
+                       style="width: 50px;height: 20px;line-height: 20px;text-align: center;background: #0078c5; color: #ffffff;padding: 2px 4px;border-radius: 2px;">预约</a>
+                    <a href="#"
+                       style="width: 50px;height: 20px;line-height: 20px;text-align: center;color: #ffffff; background:#8c8c8c;padding: 2px 4px;border-radius: 2px;">详情</a>
+                </p>
+            </a>
+        </li>
+        {/volist}
     </ul>
-</div>
-<div class="banner">
-    <img src="/public/static/images/banner.jpg" alt="">
-</div>
 
-
+</div>
 
 <script type="text/javascript" src="/public/static/js/jquery.js"></script>
 <script type="text/javascript">

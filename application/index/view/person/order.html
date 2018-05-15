@@ -1,0 +1,76 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class="clearfloat w1200">
+    <div class="left-menu">
+        <ul>
+            <li><a href="/index/person/order" class="{if condition=" $type==0"}active{/if}">全部订单</a></li>
+            <li><a href="/index/person/order?id=0" class="{if condition=" $type==0"}active{/if}">已预订</a></li>
+            <li><a href="/index/person/order?id=1" class="{if condition=" $type==1"}active{/if}">服务中</a></li>
+            <li><a href="/index/person/order?id=2" class="{if condition=" $type==2"}active{/if}">已完成</a></li>
+            <li><a href="/index/person/index">资料修改</a></li>
+        </ul>
+    </div>
+    <div class="right-detail clearfloat">
+        <div class="order-list">
+            <table class="table table-responsive table-bordered" style=" margin-top: 30px;">
+                <tr>
+                    <th>订单编号</th>
+                    <th>员工姓名</th>
+                    <th>用户姓名</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+
+                {volist name="orderList" id="order"}
+                <tr id="tr{$order.id}">
+                    <td>{$order.id}</td>
+                    <td>{$order.yunName}</a></td>
+                    <td>{$order.userName}</td>
+                    <td>{$order.create_time}</td>
+                    <td>
+                        {if condition="$order.state==0"}
+                        已预订
+                        {elseif condition="$order.state==1"}
+                        服务中
+                        {else /}
+                        已完成
+                        {/if}
+
+                    </td>
+                    <td>
+                        {if condition="$userType==1"}
+                        无
+                        {else /}
+                        <select class="service-where" data-index="{$order.id}">
+                            <option value="0" {if condition="$type==0"}selected{/if}>已预订</option>
+                            <option value="1" {if condition="$type==1"}selected{/if}>服务中</option>
+                            <option value="2" {if condition="$type==2"}selected{/if}>已完成</option>
+                        </select>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+            </table>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="footer"}
+<script type="text/javascript">
+    $('.service-where').on('change', function () {
+        var typeId = $(this).val();
+        var id = $(this).attr('data-index');
+        $.get('/index/person/updateOrder', {
+            id: id,
+            typeId: typeId
+        }, function (data) {
+            if (data.code == 0) {
+                alert('操作成功');
+            } else {
+                alert('操作失败，请稍后重试');
+            }
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,41 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class="clearfloat w1200">
+    <div class="left-menu">
+        <ul>
+            <li><a href="/index/person/order">全部订单</a></li>
+            <li><a href="/index/person/order?id=1">已预订</a></li>
+            <li><a href="/index/person/order?id=2">服务中</a></li>
+            <li><a href="/index/person/order?id=3">已完成</a></li>
+            <li><a href="/index/person/index" class="active">资料修改</a></li>
+        </ul>
+    </div>
+    <div class="right-detail clearfloat">
+
+        <div class="left-img">
+            <div class="img-box">
+                <img src="/public/static/images/ico.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="right-info">
+            <form method="post" action="/index/person/{$userType==1?'update':'updateUser'}">
+                <input type="hidden" name="id" value="{$user.id}">
+                <span>邮箱: &nbsp;&nbsp;{$user.email}</span><br>
+                <span>用户名:  </span><input type="text" name="name0" value=""><br>
+                <span>原密码:  </span><input type="password" name="password"><br>
+                <span>新密码:  </span><input type="text" name="newpassword"><br>
+                <span>手机号:  </span><input type="text" name="tel" value="{$user.tel}"><br>
+                {if condition="$userType==2"}
+                <span>详细地址:  </span><input type="text" name="name" value="{$user.info}">
+                {/if}
+
+                <br> <input style="background: #78bbff;" type="submit" value="提交" class="m-btn">
+                <input style="background: #6b6b6c;" type="reset" value="重置" class="m-btn">
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="footer"}
+{/block}

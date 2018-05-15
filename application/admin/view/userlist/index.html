@@ -1,0 +1,40 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class='index' >
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> 用户列表</li>
+    </ol>
+
+    <table class="table table-responsive" style="padding:0  20px;">
+        <tr>
+            <th>id</th>
+            <th>名称</th>
+            <th>邮箱</th>
+            <th>密码</th>
+            <th>手机号</th>
+            <th>地址</th>
+            <th>头像</th>
+        </tr>
+
+        {volist name="userList" id="user"}
+        <tr id="tr{$user.id}">
+            <td>{$user.id}</td>
+            <td>{$user.name}</td>
+            <td>{$user.email}</td>
+            <td>{$user.password}</td>
+            <td>{$user.tel}</td>
+            <td>{$user.addr}</td>
+            <td><img src="{$user.img}" alt="" style="width: 20px;height: 20px;"></td>
+        </tr>
+        {/volist}
+    </table>
+
+</div>
+{/block}
+{block name="script"}
+<script>
+    $(document).ready(function () {
+        $('.index').slideToggle("slow");
+    });
+</script>
+{/block}

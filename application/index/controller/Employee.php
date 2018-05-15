@@ -74,4 +74,29 @@ class Employee extends BaseController
         return $this->fetch();
     }
 
+    public function detail()
+    {
+        $request = Request::instance();
+        $id = $request->get('id');
+        $emp = Db::name('yuan')->where(array('id' => $id))->find();
+        if (is_null($emp)) {
+            $this->error('没有该员工', '/index/Employee/listEmployee');
+            exit();
+        }
+
+//        根据addrid查询出地址名称
+
+        $addrid = $emp['addrid'];
+        $addr = Db::name('addr')->where(array('id' => $addrid))->field('name')->find();
+        $emp['addrname'] = $addr['name'];
+
+//        根据type查处服务类型
+        $type = $emp['type'];
+        $server = Db::name('addr')->where(array('id' => $type))->field('name')->find();
+        $emp['serverrname'] = $server['name'];
+
+        $this->assign('emp', $emp);
+        return $this->fetch();
+    }
+
 }

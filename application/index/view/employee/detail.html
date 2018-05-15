@@ -1,0 +1,31 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class="w1200 emp-detail">
+    <img src="/public/static/images/ico.jpg" alt="">
+    <p><span>姓名: </span>{$emp.name}</p>
+    <p><span>工作经验: </span>{$emp.exper}年</p>
+    <p><span>服务类型: </span>{$emp.serverrname}</p>
+    <p><span>地址: </span>{$emp.addrname}</p>
+    <p><span>个人简介: </span>{$emp.info}</p>
+    <a href="#" class="order">预约</a>
+</div>
+{/block}
+{block name="footer"}
+<script type="text/javascript">
+    $('.order').on('click', function () {
+
+        $.get('/index/order/addOrder', {
+            id: '{$emp.id}'
+        }, function (data) {
+
+            if (data.code == 0) {
+                alert('预约成功');
+                window.location.reload();
+            } else {
+                alert(data.msg);
+            }
+        }, 'json');
+        return false;
+    });
+</script>
+{/block}

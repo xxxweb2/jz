@@ -1,0 +1,98 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class='index'>
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> 用户列表</li>
+    </ol>
+
+    <table class="table table-responsive" style="padding:0  20px;">
+        <tr>
+            <th>id</th>
+            <th>名称</th>
+            <th>密码</th>
+            <th>邮箱</th>
+            <th>手机号</th>
+            <th>身份证号</th>
+            <th>经验</th>
+            <th>职位类型</th>
+            <th>详细信息</th>
+            <th>头像</th>
+            <th>flag</th>
+            <th>审核状态（0待审核 1审核通过）</th>
+            <th>评分</th>
+            <th>地址</th>
+            <th>年龄</th>
+        </tr>
+
+        {volist name="empList" id="user"}
+        <tr id="tr{$user.id}">
+            <td>{$user.id}</td>
+            <td>{$user.name}</td>
+            <td>{$user.password}</td>
+            <td>{$user.email}</td>
+            <td>{$user.tel}</td>
+            <td>{$user.cardid}</td>
+            <td>{$user.exper}</td>
+            <td>{$user.type}</td>
+            <td>{$user.info}</td>
+
+            <td><img src="{$user.img}" alt="" style="width: 40px;height: 40px;"></td>
+            <td>{$user.flag}</td>
+            <td id="state" data-id="{$user.id}" ondblclick="edit(this)">{$user.state}</td>
+            <td>{$user.sort}</td>
+            <td>{$user.addrid}</td>
+            <td>{$user.age}</td>
+        </tr>
+        {/volist}
+    </table>
+
+</div>
+{/block}
+{block name="script"}
+<script>
+    $(document).ready(function () {
+        $('.index').slideToggle("slow");
+    });
+
+    /*
+    * 双击修改内容
+    * */
+
+    function edit(element) {
+        var oldhtml = element.innerHTML;//获得元素之前的内容
+        var newobj = document.createElement('input');//创建一个input元素
+        newobj.type = 'text';//为newobj元素添加类型
+        newobj.value = oldhtml;
+        element.innerHTML = '';　　 //设置元素内容为空
+        element.appendChild(newobj);//添加子元素
+        newobj.focus();//获得焦点
+        //设置newobj失去焦点的事件
+        newobj.onblur = function () {
+            //下面应该判断是否做了修改并使用ajax代码请求服务端将id与修改后的数据提交
+
+            //当触发时判断newobj的值是否为空，为空则不修改，并返回oldhtml
+            element.innerHTML = this.value ? this.value : oldhtml;
+
+            //进行ajax请求 更新数据
+            if (this.value != oldhtml) {
+                $.post('/admin/empList/update', {
+                    'id': element.getAttribute('data-id'),
+                    'key': element.id,
+                    'val': this.value,
+                }, function (data) {
+                    if (data['code'] == 0) {
+                        //成功
+                        element.innerHTML = data['res'];
+                        alert('数据更新成功');
+                    } else {
+                        //更新失败
+                        element.innerHTML = oldhtml;
+                        alert('更新失败');
+                    }
+                }, 'json');
+
+            }
+        }
+    }
+</script>
+{/block}

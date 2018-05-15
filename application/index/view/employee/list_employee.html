@@ -1,33 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>欢迎光临家政服务管理系统</title>
-    <link rel="stylesheet" href="/public/static/css/reset.css">
-    <link rel="stylesheet" href="/public/static/css/basic.css">
-</head>
-<body>
-<div class="top">
-    <div class="w1200 clearfloat">
-        <h2>欢迎光临家政服务管理系统</h2>
-        <ul>
-            {if condition="$user==null"}
-            <a href="/index/login/index" style="float:right;line-height: 50px; color: #ffffff">登陆</a>
-            {else /}
-            <li><img src="/public/static/images/ico.jpg" alt=""></li>
-            <li><a href="#">个人中心</a></li>
-            <li>|</li>
-            <li>欢迎{$userType==1?'用户':'家政'}:&nbsp;&nbsp;{$user.name}</li>
-            <li>|</li>
-            <li><a href="/index/login/logout">退出账号</a></li>
-            {/if}
-        </ul>
-    </div>
-</div>
-<div class="header w1200">
-    <h1>家政服务管理系统</h1>
-</div>
-
+{extend name="common/layout"}
+{block name="main"}
 <div class="menu w1200">
 
     <div class="menu-item clearfloat addr">
@@ -71,7 +43,7 @@
     <ul>
         {volist name="emplList" id="emp"}
         <li>
-            <a href="#">
+            <a href="/index/employee/detail?id={$emp.id}">
                 <img src="{$emp.img}" alt="">
 
                 <p><span></span>{$emp.addrname}</p>
@@ -82,7 +54,7 @@
                 <p>
                     <a href="#"
                        style="width: 50px;height: 20px;line-height: 20px;text-align: center;background: #0078c5; color: #ffffff;padding: 2px 4px;border-radius: 2px;">预约</a>
-                    <a href="#"
+                    <a href="/index/employee/detail?id={$emp.id}"
                        style="width: 50px;height: 20px;line-height: 20px;text-align: center;color: #ffffff; background:#8c8c8c;padding: 2px 4px;border-radius: 2px;">详情</a>
                 </p>
             </a>
@@ -91,8 +63,8 @@
     </ul>
 
 </div>
-
-<script type="text/javascript" src="/public/static/js/jquery.js"></script>
+{/block}
+{block name="footer"}
 <script type="text/javascript">
     $('.addr li').on('click', function () {
         $(this).siblings().removeClass('active');
@@ -146,5 +118,4 @@
         window.location.href = "/index/employee/listemployee?addrId=" + addrId + "&jobId=" + jobId + "&sortId=" + sortId;
     });
 </script>
-</body>
-</html>
+{/block}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/public/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/public/static/css/admin/style_a.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <script src="/public/static/js/admin/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        #menu1 {
+            background-color: #2e363f;
+        }
+
+        #menu1 li a {
+            color: #899dab;
+            line-height: 44px;
+        }
+
+        #menu1 li a:hover {
+            color: #ffffff;
+        }
+    </style>
+    <script type="text/javascript">
+        function isRealNum(val) {
+            // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
+            if (val === "" || val == null) {
+                return false;
+            }
+            if (!isNaN(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+
+
+<!-- 开始左侧侧边栏 -->
+<div class='sidebar'>
+    <div class='logodiv'>
+        <span class='logo'></span>
+    </div>
+    <ul>
+        <li><a href='/admin/index/index'><span class="glyphicon glyphicon-home"></span> 主页</a></li>
+        <!--        banner大图管理-->
+        <li><a href='/admin/userList/index'><span class="glyphicon glyphicon-plane"></span>用户管理</a></li>
+        <li><a href='/admin/empList/index'><span class="glyphicon glyphicon-plane"></span>员工管理</a></li>
+        <li><a href='/admin/order/index'><span class="glyphicon glyphicon-plane"></span>订单管理</a></li>
+        <!--<li><a href='/admin/newsList'><span class="glyphicon glyphicon-stats"></span>新闻管理</a></li>-->
+
+        <!--<li><a href='/admin/jobList'><span class="glyphicon glyphicon-plane"></span>招聘管理</a></li>-->
+
+
+        <!--<li><a href='/admin/projectList'><span class="glyphicon glyphicon-plane"></span>项目管理</a></li>-->
+
+        <!--<li><a href='/admin/userList'><span class="glyphicon glyphicon-plane"></span>用户管理</a></li>-->
+
+        <!--        <li><a href='/admin/showConfig'><span class="glyphicon glyphicon-stats"></span>&nbsp;信息配置</a></li>-->
+
+    </ul>
+    <div></div>
+</div>
+
+<div class='right'>
+    <div class='topheader'>
+        <ul>
+
+            <li><a href='/'><span class="glyphicon glyphicon-phone-alt"></span> 返回前台</a></li>
+            <li><a href='/admin/login?out=yes'><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
+
+        </ul>
+    </div>
+
+{block name="main"}{/block}
+</div>
+<script src="/public/static/js/jquery.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="/public/static/js/bootstrap.min.js"></script>
+
+{block name="script"}{/block}
+</body>
+</html>

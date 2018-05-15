@@ -55,7 +55,7 @@ class Login extends BaseController
         if (!is_null($count)) {
             session('user', $count);
             session('userType', 1);
-            $this->success('登陆成功', '/index/Employee/listEmployee');
+            $this->success('登陆成功', '/');
             exit();
         }
 
@@ -63,7 +63,7 @@ class Login extends BaseController
         if (!is_null($count)) {
             session('userType', 2);
             session('user', $count);
-            $this->success('登陆成功', '/index/Employee/listEmployee');
+            $this->success('登陆成功', '/');
             exit();
         }
 

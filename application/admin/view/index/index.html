@@ -1,0 +1,39 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class='index'>
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> 主页</li>
+    </ol>
+    <div class="panel panel-default">
+        <div class="panel-heading">总体概况</div>
+        <div class="panel-body">
+            <div class='demo-container'>
+                <div class='row'>
+                    <div class='col-md-4'>
+                        <div id='login_msg'></div>
+                    </div>
+                    <div class='col-md-4'>
+                        <div id='users_msg'></div>
+                    </div>
+                    <div class='col-md-4'>
+                        <div id='gprs_msg'></div>
+                    </div>
+
+                </div> <!-- end row -->
+
+                <div class='row'>
+                    <div id='line_msg'></div>
+                </div>
+
+            </div>
+        </div>
+    </div>   <!-- index div end -->
+</div>
+{/block}
+{block name="script"}
+<script>
+    $(document).ready(function () {
+        $('.index').slideToggle("slow");
+    });
+</script>
+{/block}

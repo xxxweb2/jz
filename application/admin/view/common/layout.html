@@ -8,10 +8,12 @@
     <!-- Bootstrap -->
     <link href="/public/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/public/static/css/admin/style_a.css" rel="stylesheet">
+    <link href="/public/static/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
     <script src="/public/static/js/admin/respond.min.js"></script>
+
     <![endif]-->
 
     <style>
@@ -56,6 +58,7 @@
         <li><a href='/admin/userList/index'><span class="glyphicon glyphicon-plane"></span>用户管理</a></li>
         <li><a href='/admin/empList/index'><span class="glyphicon glyphicon-plane"></span>员工管理</a></li>
         <li><a href='/admin/order/index'><span class="glyphicon glyphicon-plane"></span>订单管理</a></li>
+        <li><a href='/admin/news/index'><span class="glyphicon glyphicon-plane"></span>新闻管理</a></li>
         <!--<li><a href='/admin/newsList'><span class="glyphicon glyphicon-stats"></span>新闻管理</a></li>-->
 
         <!--<li><a href='/admin/jobList'><span class="glyphicon glyphicon-plane"></span>招聘管理</a></li>-->
@@ -81,11 +84,12 @@
         </ul>
     </div>
 
-{block name="main"}{/block}
+    {block name="main"}{/block}
 </div>
 <script src="/public/static/js/jquery.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="/public/static/js/bootstrap.min.js"></script>
+<script src="/public/static/js/upload.min.js"></script>
 
 {block name="script"}{/block}
 </body>

@@ -1,18 +1,24 @@
 {extend name="common/layout"}
 {block name="main"}
 <div class="w1200 new-detail">
-    <h2>与我们合作</h2>
+    <h2>{$news.title}</h2>
     <span style="margin-left: 380px;">发布时间： </span>
-    <span>2018/04/26 14:57</span>
+    <span>{$news.time}</span>
     <span style="margin-left: 150px">浏览： </span>
-    <span>111次： </span>
-    <p>滴答滴答滴答滴答滴答滴答滴答</p>
+    <span>{$news.click}次 </span>
+    <p>{$news.msg}</p>
 
     <div class="toggle">
-        <a href="#" style="float: left"><<上一篇</a>
-        <a href="#" style="float: right">下一篇>></a>
+        {if condition="$hasPre==1"}
+        <a href="/index/news/next?pre={$news.id}" style="float: left"><<上一篇</a>
+        {/if}
+
+        {if condition="$hasNext==1"}
+        <a href="/index/news/next?next={$news.id}" style="float: right">下一篇>></a>
+        {/if}
     </div>
 </div>
 {/block}
 {block name="footer"}
 {/block}
+

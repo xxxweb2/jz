@@ -26,7 +26,7 @@ class Login extends \app\admin\controller\BaseController
         $captcha = $request->post('qrcode');
         if (!captcha_check($captcha)) {
             //验证失败
-            $this->error('验证码输入错误，请重新输入', '/index/login/index');
+            $this->error('验证码输入错误，请重新输入', '/admin/login/index');
         };
 
 //        获取账号
@@ -34,12 +34,12 @@ class Login extends \app\admin\controller\BaseController
         $password = $request->post('password');
 
         if ($username != 'admin' || $password != 'admin') {
-            $this->error('账号或者密码错误，请重新登陆', '/index/login/index');
+            $this->error('账号或者密码错误，请重新登陆', '/admin/login/index');
             exit();
         }
         $count = Db::name('user')->where(array('id' => 1))->find();
 
-        session('user', $count);
+        session('adminUser', $count);
         session('userType', 3);
         $this->success('登陆成功', '/admin/index/index');
     }

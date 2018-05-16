@@ -13,12 +13,17 @@ class Index extends BaseController
 //        获取推荐用户
         $userList = Db::name('yuan')->order('id desc')->limit(6)->select();
 
-        foreach ($userList as $key=>$user){
+        foreach ($userList as $key => $user) {
             $addrid = $user['addrid'];
             $addr = Db::name('addr')->where(array('id' => $addrid))->field('name')->find();
             $userList[$key]['addrname'] = $addr['name'];
         }
         $this->assign('userList', $userList);
+
+
+//        获取新闻推荐
+        $newsList = Db::name('news')->order('id desc')->limit(3)->select();
+        $this->assign('newsList', $newsList);
         return $this->fetch();
     }
 }

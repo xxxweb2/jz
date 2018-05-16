@@ -10,16 +10,17 @@
 
 
 <!-- Swiper -->
-<div class="swiper-container w1200" style="height: 328px">
+<div class="swiper-container w1200" style="height: 446px">
     <div class="swiper-wrapper">
         {volist name="userList" id="user"}
+        <a href="index/employee/detail?id={$user.id}" class="swiper-slide" style="text-align: center;display: block">
 
-        <div class="swiper-slide" style="text-align: center">
             <img src="{$user.img}" alt="" style="height: 220px;margin-bottom: 10px">
             <p><h4 style="line-height: 24px;">{$user.name}</h4><span></span><span style="line-height: 24px;">{$user.addrname}</span></p>
             <p style="line-height: 24px;">评分: {$user.sort}分</p>
             <p style="line-height: 24px;">工作经验: {$user.exper}年</p>
-        </div>
+
+        </a>
         {/volist}
     </div>
     <!-- Add Pagination -->
@@ -33,29 +34,33 @@
 
 <div class="w1200 news">
     <ul>
+        {volist name="newsList" id="news"}
         <li>
-            <a href="#">
-                <img src="/public/static/images/news-item.jpg" alt="">
-                <h4>如何选择正规防盗门厂家？</h4>
-                <p> 谈及现如今的门业市场，有的门店是门可罗雀，有的门店却是门庭若市。所以顾客盈门的最大门道，还得看你是否选对了厂...</p>
-                <a href="#">更多>></a>
-            </a></li>
-        <li>
-            <a href="#">
-                <img src="/public/static/images/news-item.jpg" alt="">
-                <h4>如何选择正规防盗门厂家？</h4>
-                <p> 谈及现如今的门业市场，有的门店是门可罗雀，有的门店却是门庭若市。所以顾客盈门的最大门道，还得看你是否选对了厂...</p>
-                <a href="#">更多>></a>
+            <a href="/index/news/detail?id={$news.id}">
+                <img src="{$news.img}" alt="">
+                <h4>{$news.title}？</h4>
+                <p> {$news.msg}</p>
+                <a href="/index/news/index">更多>></a>
             </a>
         </li>
-        <li>
-            <a href="#">
-                <img src="/public/static/images/news-item.jpg" alt="">
-                <h4>如何选择正规防盗门厂家？</h4>
-                <p> 谈及现如今的门业市场，有的门店是门可罗雀，有的门店却是门庭若市。所以顾客盈门的最大门道，还得看你是否选对了厂...</p>
-                <a href="#">更多>></a>
-            </a>
-        </li>
+        {/volist}
+
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<img src="/public/static/images/news-item.jpg" alt="">-->
+        <!--<h4>如何选择正规防盗门厂家？</h4>-->
+        <!--<p> 谈及现如今的门业市场，有的门店是门可罗雀，有的门店却是门庭若市。所以顾客盈门的最大门道，还得看你是否选对了厂...</p>-->
+        <!--<a href="#">更多>></a>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<img src="/public/static/images/news-item.jpg" alt="">-->
+        <!--<h4>如何选择正规防盗门厂家？</h4>-->
+        <!--<p> 谈及现如今的门业市场，有的门店是门可罗雀，有的门店却是门庭若市。所以顾客盈门的最大门道，还得看你是否选对了厂...</p>-->
+        <!--<a href="#">更多>></a>-->
+        <!--</a>-->
+        <!--</li>-->
     </ul>
 </div>
 {/block}

@@ -1,0 +1,52 @@
+{extend name="common/layout"}
+{block name="main"}
+<div class='index'>
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> 用户列表</li>
+        <a href="/admin/news/add">添加新闻</a>
+    </ol>
+
+    <table class="table table-responsive" style="padding:0  20px;">
+        <tr>
+            <th>id</th>
+            <th>名称</th>
+            <th>时间</th>
+            <th>点击量</th>
+            <th>图片</th>
+            <th>操作</th>
+        </tr>
+
+        {volist name="newsList" id="order"}
+        <tr id="tr{$order.id}">
+            <td>{$order.id}</td>
+            <td>{$order.title}</a></td>
+            <td>{$order.time}</td>
+            <td>{$order.click}</td>
+            <td><img src="/public/uploads/{$order.img}" alt="" style="width: 40px;height: 40px;"></td>
+            <td>
+                <a class="btn btn-success  btn-sm" href="/admin/news/edit?id={$order.id}"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a class="btn btn-danger  btn-sm deleteBtn" data-id="{$order.id}"><i
+                        class="glyphicon glyphicon-remove"></i></a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $('.deleteBtn').on('click', function () {
+        var id = $(this).attr('data-id');
+        $.get('/admin/news/del?id=' + id, function (data) {
+
+            if (data.code == 0) {
+                alert('删除成功');
+                $('#tr' + id).remove();
+            } else {
+                alert('删除失败，请稍后重试');
+            }
+        }, 'json');
+    });
+</script>
+{/block}

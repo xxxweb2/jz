@@ -25,8 +25,8 @@ class BaseController extends \think\Controller
         $action = $request->action();
 
 
-        if (!is_null(session('user'))) {
-            $user = session('user');
+        if (!is_null(session('adminUser'))) {
+            $user = session('adminUser');
             $userType = session('userType');
         } else {
             if ($method != 'Login') {
@@ -34,7 +34,7 @@ class BaseController extends \think\Controller
             }
         }
         $this->assign('userType', $userType);
-        $this->assign('user', $user);
+        $this->assign('adminUser', $user);
 
     }
 }

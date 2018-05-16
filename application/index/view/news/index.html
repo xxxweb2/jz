@@ -1,23 +1,31 @@
 {extend name="common/layout"}
 {block name="main"}
 <ul class="newsList w1200">
+    {volist name="newsList" id="news"}
     <li>
-        <a href="#" class="clearfloat">
+        <a href="/index/news/detail?id={$news.id}" class="clearfloat">
             <div class="time-left">
-                <p style="font-size: 48px;margin-top: 30px">26</p>
-                <p style="font-size: 24px">2018/04</p>
+                <p style="font-size: 48px;margin-top: 30px">{$news.day}</p>
+                <p style="font-size: 24px">{$news.yearMonth}</p>
             </div>
             <div class="detail-right">
-                <h5>与羽戈科技合作你想好了么？</h5>
-                <p> 羽戈科技是一家致力于将人工智能姿态矫正技术和大数据技术应用于智慧体育的企业，在与传统体育培训 公司的长期合作中，</p>
+                <h5>{$news.title}</h5>
+                <p class="news-msg"> {$news.msg}</p>
                 <img src="/public/static/images/more.png" alt="">
             </div>
-
         </a>
     </li>
-    <li></li>
-    <li></li>
+    {/volist}
 </ul>
+<div class="w1200">
+    {$newsList->render()}
+</div>
 {/block}
 {block name="footer"}
+<script type="text/javascript">
+    var newsMsg = $('.news-msg').html();
+    newsMsg = newsMsg.substring(0, 60);
+    $('.news-msg').html(newsMsg);
+
+</script>
 {/block}

@@ -33,7 +33,7 @@ class Emplist extends BaseController
         $key = $request->post('key');
         $val = $request->post('val');
         $res = 0;
-        if ($val == 0 || $val == 1) {
+        if ($val == 0 || $val == 1 || $val == 2) {
             $data['code'] = 0;
             $res = Db::name('yuan')->where(array('id' => $id))->update(array($key => $val));
             $data['res'] = $val;

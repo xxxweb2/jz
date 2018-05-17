@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <link rel="stylesheet" href="/public/static/css/reset.css">
+    <link rel="stylesheet" href="/public/static/css/login.css">
+    <link rel="stylesheet" href="/public/static/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="select-box">
+    <div class="select-detail" style="height: 564px; position: relative">
+        <h3 style="background: #2d3e5c">员工注册</h3>
+
+        <form action="/index/login/resetPwd" class="user" method="post">
+            <div class="form-group">
+                <label>邮箱:</label>
+                <input type="text" name="email" class="email">
+            </div>
+            <input type="button" value="发送验证码" class="btn sendEmail" style="margin-bottom: 10px;">
+
+
+            <div class="form-group">
+                <label>邮箱验证码:</label>
+                <input type="text" name="code" class="code">
+            </div>
+
+            <div class="form-group">
+                <label>新密码:</label>
+                <input type="password" name="password" class="password">
+            </div>
+            <div class="form-group">
+                <label>确认密码:</label>
+                <input type="password" name="rpassword" class="rpassword">
+            </div>
+
+
+            <div class="action" style="margin-top: 0;">
+                <input type="submit" style="float: left" value="提交">
+
+                <input type="reset" style="float: right" value="重置">
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.js"></script>
+<script type="text/javascript" src="/public/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/public/static/js/upload.min.js"></script>
+<script type="text/javascript" src="/public/static/js/util.js"></script>
+<script type="text/javascript">
+    $('.btn-upload').uploadFile(
+        {
+            method: 'post',
+            url: "/index/user/uploadFile",
+            error: function (data) {
+                alert(data.msg);
+            },
+            success: function (data) {
+                $('#show-img').attr('src', '/public/uploads/' + data.msg);
+                $('#img').val(data['msg']);
+            }
+        });
+
+
+    $('.sendEmail').on('click', function () {
+        var email = $('.email').val();
+
+        if (!checkEmail(email)) {
+            alert('请输入正确的邮箱格式');
+            return false;
+        }
+
+        $.get('/index/login/sendEmailToPwd', {
+            email: email
+        }, function (data) {
+            if (data.code == 0) {
+                alert('验证码发送成功');
+            } else {
+                alert('验证码发送失败，请稍后重试');
+            }
+        }, 'json');
+
+    });
+    $('.user').on('submit', function () {
+        var email = $('.email').val();
+
+        if (!checkEmail(email)) {
+            alert('请输入正确的邮箱格式');
+            return false;
+        }
+    });
+</script>
+</body>
+</html>

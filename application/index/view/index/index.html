@@ -19,7 +19,6 @@
             <p><h4 style="line-height: 24px;">{$user.name}</h4><span></span><span style="line-height: 24px;">{$user.addrname}</span></p>
             <p style="line-height: 24px;">评分: {$user.sort}分</p>
             <p style="line-height: 24px;">工作经验: {$user.exper}年</p>
-
         </a>
         {/volist}
     </div>
@@ -37,7 +36,7 @@
         {volist name="newsList" id="news"}
         <li>
             <a href="/index/news/detail?id={$news.id}">
-                <img src="{$news.img}" alt="">
+                <img src="/public/uploads/{$news.img}" alt="">
                 <h4>{$news.title}？</h4>
                 <p> {$news.msg}</p>
                 <a href="/index/news/index">更多>></a>

@@ -12,6 +12,7 @@
             <th>用户姓名</th>
             <th>创建时间</th>
             <th>状态</th>
+            <th>原因</th>
         </tr>
 
         {volist name="orderList" id="order"}
@@ -21,7 +22,8 @@
             <td>{$order.userName}</td>
             <td>{$order.create_time}</td>
 
-            <td>{$order.state}</td>
+            <td id="state" ondblclick="edit(this)" data-id="{$order.id}">{$order.state}</td>
+            <td>{$order.info}</td>
         </tr>
         {/volist}
     </table>
@@ -29,7 +31,46 @@
 </div>
 {/block}
 {block name="script"}
-<script>
+<script type="text/javascript">
+    /*
+        * 双击修改内容
+        * */
 
+    function edit(element) {
+        var oldhtml = element.innerHTML;//获得元素之前的内容
+        var newobj = document.createElement('input');//创建一个input元素
+        newobj.type = 'text';//为newobj元素添加类型
+        newobj.value = oldhtml;
+        element.innerHTML = '';　　 //设置元素内容为空
+        element.appendChild(newobj);//添加子元素
+        newobj.focus();//获得焦点
+        //设置newobj失去焦点的事件
+        newobj.onblur = function () {
+            //下面应该判断是否做了修改并使用ajax代码请求服务端将id与修改后的数据提交
+
+            //当触发时判断newobj的值是否为空，为空则不修改，并返回oldhtml
+            element.innerHTML = this.value ? this.value : oldhtml;
+
+            //进行ajax请求 更新数据
+            if (this.value != oldhtml) {
+                $.post('/admin/order/update', {
+                    'id': element.getAttribute('data-id'),
+                    'key': element.id,
+                    'val': this.value,
+                }, function (data) {
+                    if (data['code'] == 0) {
+                        //成功
+                        element.innerHTML = data['res'];
+                        alert('数据更新成功');
+                    } else {
+                        //更新失败
+                        element.innerHTML = oldhtml;
+                        alert('更新失败');
+                    }
+                }, 'json');
+
+            }
+        }
+    }
 </script>
 {/block}

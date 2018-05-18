@@ -3,7 +3,8 @@
 <div class="clearfloat w1200">
     <div class="left-menu">
         <ul>
-            <li><a href="/index/person/order" class="{if condition=" $type==0"}active{/if}">全部订单</a></li>
+
+            <li><a href="/index/person/order" class="{if condition=" $type==-1"}active{/if}">全部订单</a></li>
             <li><a href="/index/person/order?id=0" class="{if condition=" $type==0"}active{/if}">已预订</a></li>
             <li><a href="/index/person/order?id=1" class="{if condition=" $type==1"}active{/if}">服务中</a></li>
             <li><a href="/index/person/order?id=2" class="{if condition=" $type==2"}active{/if}">已完成</a></li>
@@ -32,21 +33,37 @@
                         {if condition="$order.state==0"}
                         已预订
                         {elseif condition="$order.state==1"}
+                        已接单
+                        {elseif condition="$order.state==2"}
                         服务中
-                        {else /}
+                        {elseif condition="$order.state==3"}
                         已完成
+                        {elseif condition="$order.state==4"}
+                        取消订单中
+                        {else /}
                         {/if}
 
                     </td>
                     <td>
                         {if condition="$userType==1"}
+                        {if condition="$order.state<4"}
+                        <a data-index="{$order.id}" data-user="{$order.userid}" href="#" class="delOrder" data-toggle="modal" data-target="#myModal">取消订单</a>
+                        {else /}
+                        无
+                        {/if}
+                        {else /}
+
+                        {if condition="$order.state==4"}
                         无
                         {else /}
+
                         <select class="service-where" data-index="{$order.id}">
                             <option value="0" {if condition="$type==0"}selected{/if}>已预订</option>
-                            <option value="1" {if condition="$type==1"}selected{/if}>服务中</option>
-                            <option value="2" {if condition="$type==2"}selected{/if}>已完成</option>
+                            <option value="1" {if condition="$type==1"}selected{/if}>已接单</option>
+                            <option value="2" {if condition="$type==2"}selected{/if}>服务中</option>
+                            <option value="3" {if condition="$type==3"}selected{/if}>已完成</option>
                         </select>
+                        {/if}
                         {/if}
                     </td>
                 </tr>
@@ -55,6 +72,41 @@
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">-->
+    <!--Launch demo modal-->
+<!--</button>-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">填写取消订单理由</h4>
+            </div>
+            <form action="/index/order/cancelOrder" method="post">
+            <div class="modal-body">
+
+                    <input type="hidden" id="delRea" name="id">
+                    <input type="hidden" id="userid" name="userid">
+
+                    <div class="form-group">
+                        <label>填写取消订单理由: </label>
+                        <textarea class="form-control" name="rea"></textarea>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary">提交申请</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {/block}
 {block name="footer"}
 <script type="text/javascript">
@@ -71,6 +123,10 @@
                 alert('操作失败，请稍后重试');
             }
         });
+    });
+    $('.delOrder').on('click', function () {
+        $('#delRea').val($(this).attr('data-index'));
+        $('#userid').val($(this).attr('data-user'));
     });
 </script>
 {/block}

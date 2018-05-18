@@ -47,4 +47,39 @@ class Order extends BaseController
         return json($data);
     }
 
+    public function cancelOrder()
+    {
+//        首先判断是否为用户账号
+
+        $userType = session('userType');
+
+        if ($userType != 1) {
+            $this->error('您不能删除该订单', '/');
+            exit();
+        }
+
+
+        $user = session('user');
+//        $userType = session('userType');
+//        再次判断是否为该用户的订单
+        $request = Request::instance();
+        $id = $request->post('id');
+        $info = $request->post('rea');
+        $userid = $request->post('userid');
+
+        if ($user['id'] != $userid) {
+            $this->error('您不能删除该订单', '/');
+            exit();
+        }
+
+        $res = Db::name('user_yuan')->where(array('id' => $id))->update(array('info' => $info, 'state' => 4));
+        if (!$res) {
+            $this->error('操作失败，请稍后重试', '/');
+            exit();
+        }
+        $this->success('申请退单中', '/index/person/order');
+    }
+
+
+
 }

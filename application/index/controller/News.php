@@ -19,7 +19,7 @@ class News extends BaseController
 
 //        获取所有新闻
 //        $newsList = Db::name('news')->select();
-        $newsList = Db::name('news')->paginate(8)->each(function ($item, $key) {
+        $newsList = Db::name('news')->paginate(3)->each(function ($item, $key) {
             $time = $item['time'];
             if (!empty($time)) {
                 $timeArr = explode(" ", $time);

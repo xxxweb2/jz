@@ -99,7 +99,7 @@ class Person extends BaseController
 
 
         if ($id == -1) {
-            $orderList = Db::name('user_yuan')->select();
+            $orderList = Db::name('user_yuan')->where(array('state  '=>'< 5'))->select();
         } else {
             $orderList = Db::name('user_yuan')->where(array('state' => $id))->select();
         }

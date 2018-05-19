@@ -80,6 +80,43 @@ class Order extends BaseController
         $this->success('申请退单中', '/index/person/order');
     }
 
+//评价
+
+    public function eva()
+    {
+
+        $request = Request::instance();
+//       evaOrderId
+//eva
+
+        $evaOrderId = $request->post('evaOrderId');
+
+        $eva = $request->post('eva');
+
+        $evaUserId = $request->post('evaUserId');
+
+        Db::name('user_yuan')->where(array('id'=>$evaOrderId))->update(array('eva'=>1));
 
 
+
+
+//        获取家政人员评分
+        $emp = Db::name('yuan')->where(array('id'=>$evaOrderId))->find();
+        $sort = $emp['sort'];
+        $count = Db::name('user_yuan')->where(array('yuanid'=>$evaOrderId, 'state'=>3))->count();
+
+        $sort = ($sort*($count-1)+$eva)/$count;
+
+
+        $res =  Db::name('yuan')->where(array('id'=>$evaOrderId))->update(array('sort'=>$sort));
+
+
+//        获取家政人员一共接过多少单
+
+        if ($res) {
+            $this->success('评价成功', '/index/person/order');
+        } else {
+            $this->error('评价失败，请稍后重试', '/index/person/order');
+        }
+    }
 }

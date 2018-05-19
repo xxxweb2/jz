@@ -2,7 +2,7 @@
 {block name="main"}
 <div class="menu w1200">
 
-    <div class="menu-item clearfloat addr">
+    <div class="menu-item clearfloat addr" style="font-size: 16px;">
         <span>地点:</span>
         <a href="#" class="active">全部</a>
         <ul>
@@ -12,7 +12,7 @@
         </ul>
     </div>
 
-    <div class="menu-item job clearfloat">
+    <div class="menu-item job clearfloat" style="font-size: 16px;">
         <span>职位:</span>
         <a href="#" class="active">全部</a>
         <ul>
@@ -22,7 +22,7 @@
         </ul>
     </div>
 
-    <div class="menu-item clearfloat sort">
+    <div class="menu-item clearfloat sort" style="font-size: 16px;">
         <span>评价:</span>
         <a href="#" class="active">全部</a>
         <ul>
@@ -33,7 +33,7 @@
             <li data-index="1" class="{$sortId==1?'active':''}">一分</li>
         </ul>
     </div>
-    <button id="search">搜索</button>
+    <button id="search" class="btn" style="color: #ffffff;background: #0078c5;">搜索</button>
 </div>
 
 <div class="w1200 select">
@@ -52,7 +52,7 @@
                 <p>评分: {$emp.sort}分</p>
                 <p>工作经验: {$emp.exper}年</p>
                 <p>
-                    <a href="#"
+                    <a data-index="{$emp.id}" class="emp" href="#"
                        style="width: 50px;height: 20px;line-height: 20px;text-align: center;background: #0078c5; color: #ffffff;padding: 2px 4px;border-radius: 2px;">预约</a>
                     <a href="/index/employee/detail?id={$emp.id}"
                        style="width: 50px;height: 20px;line-height: 20px;text-align: center;color: #ffffff; background:#8c8c8c;padding: 2px 4px;border-radius: 2px;">详情</a>
@@ -117,5 +117,27 @@
 //        alert("addrId: " + addrId + "; jobId: " + jobId + " | sortId: " + sortId);
         window.location.href = "/index/employee/listemployee?addrId=" + addrId + "&jobId=" + jobId + "&sortId=" + sortId;
     });
+
+
+        $('.emp').on('click', function () {
+
+            var id = $(this).attr('data-index');
+            $.get('/index/order/addOrder', {
+                id: id
+            }, function (data) {
+
+                if (data.code == 0) {
+                    alert('预约成功');
+                    window.location.reload();
+                } else {
+                    alert(data.msg);
+                }
+            }, 'json');
+            return false;
+        });
+
+
+
+
 </script>
 {/block}

@@ -97,11 +97,20 @@ class Person extends BaseController
         $request = Request::instance();
         $id = $request->get('id', -1);
 
+        $user = session('user');
+        $userType = session('userType');
+        if ($userType == 1) {
+            $tables = "userid";
+        } else {
+            $tables = "yuanid";
+        }
 
         if ($id == -1) {
-            $orderList = Db::name('user_yuan')->where(array('state  '=>'< 5'))->select();
+
+            $orderList = Db::name('user_yuan')->where(array('state' => array('<', 5),$tables => $user['id']))->select();
+
         } else {
-            $orderList = Db::name('user_yuan')->where(array('state' => $id))->select();
+            $orderList = Db::name('user_yuan')->where(array('state' => $id, $tables => $user['id']))->select();
         }
 
 

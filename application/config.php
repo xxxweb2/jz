@@ -15,9 +15,9 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用调试模式
-    'app_debug'              => true,
+    'app_debug'              => false,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -236,4 +236,12 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    'captcha' =>    [
+        // 验证码字体大小
+        'fontSize'    =>    30,
+        // 验证码位数
+        'length'      =>    4,
+        // 关闭验证码杂点
+        'codeSet'=>'0123456789'
+    ]
 ];

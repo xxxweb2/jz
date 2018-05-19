@@ -1,13 +1,40 @@
 {extend name="common/layout"}
 {block name="main"}
+<style>
+    th{
+        text-align: center;
+    }
+</style>
 <div class="w1200 emp-detail">
+
     <img src="/public/static/images/ico.jpg" alt="">
-    <p><span>姓名: </span>{$emp.name}</p>
-    <p><span>工作经验: </span>{$emp.exper}年</p>
-    <p><span>服务类型: </span>{$emp.serverrname}</p>
-    <p><span>地址: </span>{$emp.addrname}</p>
-    <p><span>个人简介: </span>{$emp.info}</p>
-    <a href="#" class="order">预约</a>
+
+     <table class="table table-bordered">
+       <tr>
+           <th>姓名</th>
+           <th>工作经验</th>
+           <th>服务类型</th>
+           <th>地址</th>
+           <th>个人简介</th>
+           <th>操作</th>
+       </tr>
+         <tr>
+             <td>{$emp.name}</td>
+             <td>{$emp.exper}</td>
+             <td>{$emp.serverrname}</td>
+             <td>{$emp.addrname}</td>
+             <td>{$emp.info}</td>
+             <td><a href="#" class="order">预约</a></td>
+         </tr>
+     </table>
+
+
+    <!--<p><span>姓名: </span>{$emp.name}</p>-->
+    <!--<p><span>工作经验: </span>{$emp.exper}年</p>-->
+    <!--<p><span>服务类型: </span>{$emp.serverrname}</p>-->
+    <!--<p><span>地址: </span>{$emp.addrname}</p>-->
+    <!--<p><span>个人简介: </span>{$emp.info}</p>-->
+    <!--<a href="#" class="order">预约</a>-->
 </div>
 {/block}
 {block name="footer"}

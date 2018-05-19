@@ -59,6 +59,9 @@ class Employee extends BaseController
         foreach ($emplList as $key => $emp) {
 
             $addrItem = Db::name('addr')->where(array('id' => $emp['addrid']))->find();
+
+
+
             $emplList[$key]['addrname'] = $addrItem['name'];
 
         }
@@ -92,7 +95,7 @@ class Employee extends BaseController
 
 //        根据type查处服务类型
         $type = $emp['type'];
-        $server = Db::name('addr')->where(array('id' => $type))->field('name')->find();
+        $server = Db::name('service')->where(array('id' => $type))->field('name')->find();
         $emp['serverrname'] = $server['name'];
 
         $this->assign('emp', $emp);

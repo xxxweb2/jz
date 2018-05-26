@@ -59,10 +59,10 @@ class Employee extends BaseController
         foreach ($emplList as $key => $emp) {
 
             $addrItem = Db::name('addr')->where(array('id' => $emp['addrid']))->find();
-
-
-
             $emplList[$key]['addrname'] = $addrItem['name'];
+
+            $serviceItem = Db::name('service')->where(array('id' => $emp['type']))->find();
+            $emplList[$key]['servicename'] = $serviceItem['name'];
 
         }
 

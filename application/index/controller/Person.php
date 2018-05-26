@@ -35,6 +35,8 @@ class Person extends BaseController
         $password = $params['password'];
         $newpassword = $params['newpassword'];
 
+
+
         unset($params['password']);
         unset($params['newpassword']);
         $id = $params['id'];
@@ -70,6 +72,9 @@ class Person extends BaseController
         unset($params['password']);
         unset($params['newpassword']);
         $id = $params['id'];
+
+
+
         if (!is_null($password) && !is_null($newpassword)) {
             $user = Db::name('user')->where(array('id' => $id))->field('password')->find();
 
@@ -83,11 +88,9 @@ class Person extends BaseController
         $params['name'] = $name;
 
         $res = Db::name('user')->where(array('id' => $id))->update($params);
-        if ($res) {
-            $this->success('信息修改成功', '/index/person/index');
-        } else {
-            $this->error('信息修改失败， 请稍后重试', '/index/person/index');
-        }
+
+        $this->success('信息修改成功', '/index/person/index');
+
     }
 
     public function order()
@@ -107,7 +110,7 @@ class Person extends BaseController
 
         if ($id == -1) {
 
-            $orderList = Db::name('user_yuan')->where(array('state' => array('<', 5),$tables => $user['id']))->select();
+            $orderList = Db::name('user_yuan')->where(array('state' => array('<', 5), $tables => $user['id']))->select();
 
         } else {
             $orderList = Db::name('user_yuan')->where(array('state' => $id, $tables => $user['id']))->select();

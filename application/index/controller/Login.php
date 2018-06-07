@@ -55,29 +55,31 @@ class Login extends BaseController
         if (!is_null($count)) {
             session('user', $count);
             session('userType', 1);
-            $this->success('登陆成功', '/');
+
+
+            $this->success('登录成功', '/');
             exit();
         }
 
         $count = Db::name('yuan')->where(array('email' => $username, 'password' => $password))->find();
         if (!is_null($count)) {
             if ($count['state'] == 0) {
-                $this->error('账号审核中，暂不能登陆', '/index/login/index');
+                $this->error('账号审核中，暂不能登录', '/index/login/index');
                 exit();
             }
             if ($count['state'] == 1) {
-                $this->error('账号审核未通过，暂不能登陆', '/index/login/index');
+                $this->error('账号审核未通过，暂不能登录', '/index/login/index');
                 exit();
             }
 
 
             session('userType', 2);
             session('user', $count);
-            $this->success('登陆成功', '/');
+            $this->success('登录成功', '/');
             exit();
         }
 
-        $this->error('账号或者密码错误，请重新登陆', '/index/login/index');
+        $this->error('账号或者密码错误，请重新登录', '/index/login/index');
         exit();
     }
 
@@ -86,7 +88,9 @@ class Login extends BaseController
         session('user', null);
         session('userType', null);
 
-        $this->success('退出登陆成功', "/");
+
+
+        $this->success('退出登录成功', "/index/login/index");
     }
 
     public function pwd()

@@ -16,6 +16,7 @@ class Employee extends BaseController
 {
     public function listEmployee()
     {
+
 //        addrId=" + addrId + "&jobId=" + jobId + "&sortId=" + sortId;
         $request = Request::instance();
         $addrId = $request->get('addrId', 0);

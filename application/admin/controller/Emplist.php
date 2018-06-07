@@ -18,6 +18,22 @@ class Emplist extends BaseController
     {
 //        获取所有员工信息
         $empList = Db::name('yuan')->select();
+
+//        根据type 通过service表查出name
+
+        foreach ($empList as $key => $value) {
+            $type = $value['type'];
+            $service = Db::name('service')->where(array('id' => $type))->find();
+            $empList[$key]['serviceName'] = $service['name'];
+
+
+            $addrid = $value['addrid'];
+            $addr = Db::name('addr')->where(array('id' => $addrid))->find();
+            $empList[$key]['addrName'] = $addr['name'];
+
+        }
+
+
         $this->assign('empList', $empList);
         return $this->fetch();
     }
@@ -42,5 +58,42 @@ class Emplist extends BaseController
             $data['code'] = 1;
         }
         return json($data);
+    }
+
+
+    public function checkYes()
+    {
+
+        $request = Request::instance();
+        $id = $request->get('id');
+
+        $res = Db::name('yuan')->where(array('id' => $id))->update(['state' => 2]);
+
+        if ($res) {
+            $data['code'] = 0;
+        }else{
+            $data['code'] = 1;
+        }
+
+        return json($data);
+
+    }
+
+    public function checkNo()
+    {
+
+        $request = Request::instance();
+        $id = $request->get('id');
+
+        $res = Db::name('yuan')->where(array('id' => $id))->update(['state' => 1]);
+
+        if ($res) {
+            $data['code'] = 0;
+        }else{
+            $data['code'] = 1;
+        }
+
+        return json($data);
+
     }
 }

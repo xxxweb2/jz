@@ -36,21 +36,28 @@ class Person extends BaseController
         $newpassword = $params['newpassword'];
 
 
-
         unset($params['password']);
+
         unset($params['newpassword']);
         $id = $params['id'];
-        if (!is_null($password) && !is_null($newpassword)) {
+        if (!empty($password) && !empty($newpassword)) {
             $user = Db::name('yuan')->where(array('id' => $id))->field('password')->find();
 
             if ($password == $user['password']) {
                 Db::name('yuan')->where(array('id' => $id))->update(array('password' => $newpassword));
+                $this->success("密码修改成功", '/index/person/index');
+            }else {
+                $this->error("原密码错误", '/index/person/index');
             }
         }
         $name = $params['name0'];
         unset($params['name0']);
         unset($params['id']);
         $params['name'] = $name;
+
+        $a = session('user');
+        $a['img']=$params['img'];
+        session('user', $a);
 
         $res = Db::name('yuan')->where(array('id' => $id))->update($params);
         if ($res) {
@@ -74,19 +81,24 @@ class Person extends BaseController
         $id = $params['id'];
 
 
-
-        if (!is_null($password) && !is_null($newpassword)) {
+        if (!empty($password) && !empty($newpassword)) {
             $user = Db::name('user')->where(array('id' => $id))->field('password')->find();
 
             if ($password == $user['password']) {
                 Db::name('user')->where(array('id' => $id))->update(array('password' => $newpassword));
+                $this->success("密码修改成功", '/index/person/index');
+            } else {
+                $this->error("原密码错误", '/index/person/index');
             }
+
         }
         $name = $params['name0'];
         unset($params['name0']);
         unset($params['id']);
         $params['name'] = $name;
-
+        $a = session('user');
+        $a['img']=$params['img'];
+        session('user', $a);
         $res = Db::name('user')->where(array('id' => $id))->update($params);
 
         $this->success('信息修改成功', '/index/person/index');
@@ -149,4 +161,40 @@ class Person extends BaseController
         }
         return json($data);
     }
+
+    public function uploadFile() {
+        $data = array();
+
+        // 获取表单上传文件 例如上传了001.jpg
+
+        $file = request()->file('file0');
+
+        // 移动到框架应用根目录/public/uploads/ 目录下
+        if ($file) {
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+            if ($info) {
+                // 成功上传后 获取上传信息
+//                // 输出 jpg
+//                echo $info->getExtension();
+//                // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
+//                echo $info->getSaveName();
+                // 输出 42a79759f284b767dfcb2a0197904287.jpg
+//                echo $info->getFilename();
+                $request = Request::instance();
+                $id = $request->get('id');
+
+                $data['msg'] = $info->getSaveName();
+
+
+
+
+            } else {
+                // 上传失败获取错误信息
+                $data['msg'] = $file->getError();
+            }
+        }
+
+        return json($data);
+    }
+
 }

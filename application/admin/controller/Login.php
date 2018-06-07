@@ -34,14 +34,14 @@ class Login extends \app\admin\controller\BaseController
         $password = $request->post('password');
 
         if ($username != 'admin' || $password != 'admin') {
-            $this->error('账号或者密码错误，请重新登陆', '/admin/login/index');
+            $this->error('账号或者密码错误，请重新登录', '/admin/login/index');
             exit();
         }
         $count = Db::name('user')->where(array('id' => 1))->find();
 
         session('adminUser', $count);
         session('userType', 3);
-        $this->success('登陆成功', '/admin/index/index');
+        $this->success('登录成功', '/admin/index/index');
     }
 
     public function logout()

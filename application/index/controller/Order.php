@@ -20,18 +20,18 @@ class Order extends BaseController
         $request = Request::instance();
         $id = $request->get('id');
 
-//        判断用户是否登陆
+//        判断用户是否登录
         $user = session('user');
         if (is_null($user)) {
             $data['code'] = 1;
-            $data['msg'] = '没有登录, 请先登陆';
+            $data['msg'] = '没有登录, 请先登录';
             return json($data);
         }
 
         $userType = session('userType');
         if ($userType == 2) {
             $data['code'] = 2;
-            $data['msg'] = '请先登陆用户账号';
+            $data['msg'] = '请先登录用户账号';
             return json($data);
         }
         $create_time = date('Y-m-d H:i:s', time());

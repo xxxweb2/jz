@@ -35,7 +35,9 @@ class News extends BaseController
         $this->assign('newsList', $newsList);
         return $this->fetch();
     }
-
+   private function getAllNews(){
+        return Db::name('news')->paginate(3);
+   }
     public function detail()
     {
         $request = Request::instance();
